@@ -1,46 +1,26 @@
-import 'package:aandm/backend/service/backend_service.dart';
 import 'package:aandm/models/tasklist/task_list_api_model.dart';
-import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
 
 class TodoPreviewWidget extends StatefulWidget {
   const TodoPreviewWidget(
-      {super.key, required this.themeMode, required this.onPressed});
+      {super.key,
+      required this.themeMode,
+      required this.onPressed,
+      required this.taskLists,
+      required this.isLoading});
   final ThemeMode themeMode;
   final VoidCallback onPressed;
+  final List<TaskList> taskLists;
+  final bool isLoading;
 
   @override
   State<TodoPreviewWidget> createState() => _TodoPreviewWidgetState();
 }
 
 class _TodoPreviewWidgetState extends State<TodoPreviewWidget> {
-  List<TaskList> _taskLists = [];
-  bool _isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _getTaskLists();
-  }
-
-  Future<void> _getTaskLists() async {
-    try {
-      final backend = Backend();
-      final res = await backend.getAllTaskLists();
-      final own = res
-          .where((element) =>
-              element.user!.username ==
-              AuthBackend().loggedInUser?.user?.username)
-          .toList();
-      setState(() {
-        _taskLists = own;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   @override
@@ -52,7 +32,7 @@ class _TodoPreviewWidgetState extends State<TodoPreviewWidget> {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -94,11 +74,15 @@ class _TodoPreviewWidgetState extends State<TodoPreviewWidget> {
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color:
-                        Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
+                        Theme.of(context).primaryColor.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color:
+                          Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Text(
-                    '${_taskLists.length}',
+                    '${widget.taskLists.length}',
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
@@ -108,9 +92,9 @@ class _TodoPreviewWidgetState extends State<TodoPreviewWidget> {
               ],
             ),
             const SizedBox(height: 16),
-            if (_isLoading)
+            if (widget.isLoading)
               const Center(child: CircularProgressIndicator())
-            else if (_taskLists.isEmpty)
+            else if (widget.taskLists.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Text(
@@ -121,7 +105,7 @@ class _TodoPreviewWidgetState extends State<TodoPreviewWidget> {
                 ),
               )
             else
-              ..._taskLists.take(5).map((taskList) => Padding(
+              ...widget.taskLists.take(5).map((taskList) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Row(
                       children: [

@@ -218,8 +218,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child:
                                       CircularProgressIndicator(strokeWidth: 2),
                                 )
-                              : const Icon(Icons.login),
-                          label: const Text('Sign in'),
+                              : Icon(
+                                  Icons.login,
+                                  color:
+                                      Theme.of(context).primaryIconTheme.color,
+                                ),
+                          label: Text('Sign in',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium),
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(48),
                           ),

@@ -1,12 +1,16 @@
-import 'package:aandm/backend/service/backend_service.dart';
 import 'package:aandm/models/note/note_api_model.dart';
-import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
 
 class NotesPreviewWidget extends StatefulWidget {
   const NotesPreviewWidget(
-      {super.key, required this.themeMode, required this.onPressed});
+      {super.key,
+      required this.themeMode,
+      required this.onPressed,
+      required this.notes,
+      required this.isLoading});
   final ThemeMode themeMode;
+  final List<Note> notes;
+  final bool isLoading;
   final VoidCallback onPressed;
 
   @override
@@ -14,33 +18,9 @@ class NotesPreviewWidget extends StatefulWidget {
 }
 
 class _NotesPreviewWidgetState extends State<NotesPreviewWidget> {
-  List<Note> _notes = [];
-  bool _isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _getNotes();
-  }
-
-  Future<void> _getNotes() async {
-    try {
-      final backend = Backend();
-      final res = await backend.getAllNotes();
-      final own = res
-          .where((element) =>
-              element.user!.username ==
-              AuthBackend().loggedInUser?.user?.username)
-          .toList();
-      setState(() {
-        _notes = own;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   @override
@@ -52,7 +32,7 @@ class _NotesPreviewWidgetState extends State<NotesPreviewWidget> {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,11 +75,16 @@ class _NotesPreviewWidgetState extends State<NotesPreviewWidget> {
                   decoration: BoxDecoration(
                     color: Theme.of(context)
                         .secondaryHeaderColor
-                        .withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(12),
+                        .withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Theme.of(context)
+                          .secondaryHeaderColor
+                          .withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Text(
-                    '${_notes.length}',
+                    '${widget.notes.length}',
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: Theme.of(context).secondaryHeaderColor,
                           fontWeight: FontWeight.bold,
@@ -109,9 +94,9 @@ class _NotesPreviewWidgetState extends State<NotesPreviewWidget> {
               ],
             ),
             const SizedBox(height: 16),
-            if (_isLoading)
+            if (widget.isLoading)
               const Center(child: CircularProgressIndicator())
-            else if (_notes.isEmpty)
+            else if (widget.notes.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Text(
@@ -122,7 +107,7 @@ class _NotesPreviewWidgetState extends State<NotesPreviewWidget> {
                 ),
               )
             else
-              ..._notes.take(5).map((note) => Padding(
+              ...widget.notes.take(5).map((note) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Row(
                       children: [
