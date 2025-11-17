@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.9.1](https://github.com/sanriodev/aandm/compare/v3.9.0...v3.9.1) (2025-11-17)
+
+
+### Bug Fixes
+
+* latest stable flutter has malformed dart env that breaks xcode cloud build ([34f6d7c](https://github.com/sanriodev/aandm/commit/34f6d7c17494cec12802e344c251a42e2e05be93))
+* old flutter version ([d1ed3a6](https://github.com/sanriodev/aandm/commit/d1ed3a63cf46d0a07c1013a92fe0626b04cb7258))
+* use master ([6777883](https://github.com/sanriodev/aandm/commit/6777883c797f6d0d913a0036594eb7200c8566f7))
+
 ## [3.9.0](https://github.com/sanriodev/aandm/compare/v3.8.1...v3.9.0) (2025-11-14)
 
 
