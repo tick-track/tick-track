@@ -1,5 +1,115 @@
 # Changelog
 
+## [3.9.1](https://github.com/sanriodev/aandm/compare/v3.9.0...v3.9.1) (2025-11-17)
+
+
+### Bug Fixes
+
+* latest stable flutter has malformed dart env that breaks xcode cloud build ([34f6d7c](https://github.com/sanriodev/aandm/commit/34f6d7c17494cec12802e344c251a42e2e05be93))
+* old flutter version ([d1ed3a6](https://github.com/sanriodev/aandm/commit/d1ed3a63cf46d0a07c1013a92fe0626b04cb7258))
+* use master ([6777883](https://github.com/sanriodev/aandm/commit/6777883c797f6d0d913a0036594eb7200c8566f7))
+
+## [3.9.0](https://github.com/sanriodev/aandm/compare/v3.8.1...v3.9.0) (2025-11-14)
+
+
+### Features
+
+* new homepage ([4e7a0ac](https://github.com/sanriodev/aandm/commit/4e7a0acf3163eea197a30aaefd8233a5207d2641))
+* ui changes ([f464602](https://github.com/sanriodev/aandm/commit/f464602848c69d800a252eb3499218b595e0c2ef))
+
+
+### Bug Fixes
+
+* remove settings ([3525ad0](https://github.com/sanriodev/aandm/commit/3525ad045da67471aeaeeaa3bdb27b16f7772df0))
+
+## [3.8.1](https://github.com/sanriodev/aandm/compare/v3.8.0...v3.8.1) (2025-11-14)
+
+
+### Bug Fixes
+
+* header ([6cb1a55](https://github.com/sanriodev/aandm/commit/6cb1a55f9a965e79d05cc7319851255df98e325c))
+* lock files and flutter version ([76f8242](https://github.com/sanriodev/aandm/commit/76f824201e1ea25d5f06322c963fd3d373a23521))
+
+## [3.8.0](https://github.com/sanriodev/aandm/compare/v3.7.0...v3.8.0) (2025-11-13)
+
+
+### Features
+
+* change activity privacy mode and filtermode ([be6a563](https://github.com/sanriodev/aandm/commit/be6a56313c2a917dcc8f225544c7cdc2a308f995))
+
+
+### Bug Fixes
+
+* undo server url change ([78c8480](https://github.com/sanriodev/aandm/commit/78c8480065894e767d7fe45d7a966d8fa2458aec))
+
+## [3.7.0](https://github.com/sanriodev/aandm/compare/v3.6.0...v3.7.0) (2025-11-12)
+
+
+### Features
+
+* activity heatmap and more ([866f002](https://github.com/sanriodev/aandm/commit/866f00206413d5d65cea14c51ca0dd10a92b44fc))
+* activity set and get request methods ([565261a](https://github.com/sanriodev/aandm/commit/565261a6630d4d37bb45359da72660d6af09485b))
+* add fvm ([b22fae2](https://github.com/sanriodev/aandm/commit/b22fae2f1e5dd18d34e8adbdff1705ef241f4f1f))
+* dart linting etc ([c8c09c6](https://github.com/sanriodev/aandm/commit/c8c09c6a4fe6d02d70cf80fbaa99c7ce60860128))
+* heatmap levels ([59df5ec](https://github.com/sanriodev/aandm/commit/59df5ec9ec747e8249f5021e2aea1f3562b78637))
+* wip activity ([1fae9ea](https://github.com/sanriodev/aandm/commit/1fae9ea4d59fa4998432d4cf405f2be5b3627d91))
+* wip activity ([090b1c2](https://github.com/sanriodev/aandm/commit/090b1c2c7aa6e150461a66f81bb32a86501eed5b))
+* wip activity graph ([017d19f](https://github.com/sanriodev/aandm/commit/017d19fd2f43cd3778b8e8ae9e7feb184bc4ac6c))
+* wip graph ([cc71364](https://github.com/sanriodev/aandm/commit/cc713648cdeb35764dc89ed87c308c11011e43d7))
+
+## [3.6.0](https://github.com/sanriodev/aandm/compare/v3.5.1...v3.6.0) (2025-10-22)
+
+
+### Features
+
+* add nav menu ([b12ebbb](https://github.com/sanriodev/aandm/commit/b12ebbb76cefee81a93ad7406b1da02ace8bb98c))
+* add navigate ([f522825](https://github.com/sanriodev/aandm/commit/f522825d3fefb6d41835c53a81530b3a530afebe))
+* adjust colors ([812785f](https://github.com/sanriodev/aandm/commit/812785f90223f5ad898700ca66fa1bd4e99038c7))
+* adjust to use router ([0440f7b](https://github.com/sanriodev/aandm/commit/0440f7b3e2ea730cf4bd4023a65eca433c8e9d0b))
+* switch colors ([9dd742a](https://github.com/sanriodev/aandm/commit/9dd742a1d15e6d0d5ee7ca0f923505c14f7f8945))
+* use new router navigation for logout ([5131a65](https://github.com/sanriodev/aandm/commit/5131a651ef7c354f51018a3805f81cec4f2b7154))
+
+
+### Bug Fixes
+
+* adjust button ([749ebc6](https://github.com/sanriodev/aandm/commit/749ebc626104a9827c51481f682d715244dc814d))
+
+## [3.5.1](https://github.com/sanriodev/aandm/compare/v3.5.0...v3.5.1) (2025-10-22)
+
+
+### Bug Fixes
+
+* disable scrolling on tasklist accordions ([fa84f56](https://github.com/sanriodev/aandm/commit/fa84f56e4bd94229d64594b21ac6de60bbebae57))
+
+## [3.5.0](https://github.com/sanriodev/aandm/compare/v3.4.0...v3.5.0) (2025-10-17)
+
+
+### Features
+
+* privacymodes ([55a8a86](https://github.com/sanriodev/aandm/commit/55a8a861a07bf41ecff503cef00b915d043c2d94))
+
+## [3.4.0](https://github.com/sanriodev/aandm/compare/v3.3.0...v3.4.0) (2025-10-17)
+
+
+### Features
+
+* slidable for tasks and borders ([507e366](https://github.com/sanriodev/aandm/commit/507e36641ef824b38abd0e98fbfaf59d06799490))
+
+## [3.3.0](https://github.com/sanriodev/aandm/compare/v3.2.0...v3.3.0) (2025-10-16)
+
+
+### Features
+
+* buttons etc ([9fb092f](https://github.com/sanriodev/aandm/commit/9fb092f4ea06f6d0a973c26a7b7b9a688ad80c6e))
+* set loading ([61bd115](https://github.com/sanriodev/aandm/commit/61bd1158f2e68ef010108d4c2a0868861c7af8fb))
+* wip changes ([2239cda](https://github.com/sanriodev/aandm/commit/2239cdafefc8aa37dbd03a59433fcc84e6868dcb))
+* wip slidable ([d207652](https://github.com/sanriodev/aandm/commit/d20765235fce237279a8225eb948d1f1783b27ed))
+
+
+### Bug Fixes
+
+* default to light theme ([449ce36](https://github.com/sanriodev/aandm/commit/449ce3604288c635f9947961214abe8c69a6d573))
+
 ## [3.2.0](https://github.com/sanriodev/aandm/compare/v3.1.1...v3.2.0) (2025-10-16)
 
 
