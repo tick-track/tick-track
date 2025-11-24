@@ -13,12 +13,12 @@ import 'package:aandm/widgets/app_drawer_widget.dart';
 import 'package:aandm/widgets/cat_facts_widget.dart';
 import 'package:aandm/widgets/navigation/bottom_menu.dart';
 import 'package:aandm/widgets/notes_preview_widget.dart';
+import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/timer_preview_widget.dart';
 import 'package:aandm/widgets/to_do_list_widget.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
 import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -128,17 +128,13 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text("Home",
               style: Theme.of(context).primaryTextTheme.titleMedium),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          centerTitle: false,
           actions: [
-            IconButton(
-              color: Theme.of(context).primaryIconTheme.color,
-              icon: const PhosphorIcon(
-                PhosphorIconsRegular.gear,
-                semanticLabel: 'Einstellungen',
-              ),
+            OptionButton(
               onPressed: () {
                 _scaffoldKey.currentState?.openEndDrawer();
               },
-            ),
+            )
           ],
         ),
         endDrawer: AppDrawer(),

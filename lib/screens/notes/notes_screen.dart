@@ -9,11 +9,11 @@ import 'package:aandm/util/helpers.dart';
 import 'package:aandm/widgets/app_drawer_widget.dart';
 import 'package:aandm/widgets/navigation/bottom_menu.dart';
 import 'package:aandm/widgets/note_widget.dart';
+import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/skeleton/skeleton_card.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
 import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -181,6 +181,7 @@ class _NotesScreenState extends State<NotesScreen> {
       appBar: AppBar(
         title: Text("Notizen",
             style: Theme.of(context).primaryTextTheme.titleMedium),
+        centerTitle: false,
         // leading: Padding(
         //   padding: const EdgeInsets.all(8.0),
         //   child: IconButton(
@@ -195,16 +196,11 @@ class _NotesScreenState extends State<NotesScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
         actions: [
-          IconButton(
-            color: Theme.of(context).primaryIconTheme.color,
-            icon: const PhosphorIcon(
-              PhosphorIconsRegular.gear,
-              semanticLabel: 'Einstellungen',
-            ),
+          OptionButton(
             onPressed: () {
               _scaffoldKey.currentState?.openEndDrawer();
             },
-          ),
+          )
         ],
       ),
       endDrawer: AppDrawer(),

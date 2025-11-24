@@ -44,7 +44,7 @@ class CatPreviewWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
                 side: BorderSide(color: Theme.of(context).dividerColor),
               ),
-              margin: const EdgeInsets.all(4),
+              margin: const EdgeInsets.only(right: 4),
               elevation: 3,
               color: Theme.of(context).cardColor,
               child: Column(

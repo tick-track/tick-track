@@ -8,12 +8,12 @@ import 'package:aandm/models/tasklist/dto/create_task_list_dto.dart';
 import 'package:aandm/util/helpers.dart';
 import 'package:aandm/widgets/app_drawer_widget.dart';
 import 'package:aandm/widgets/navigation/bottom_menu.dart';
+import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/skeleton/skeleton_card.dart';
 import 'package:aandm/widgets/task_list_widget.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
 import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class TaskListScreen extends StatefulWidget {
@@ -179,17 +179,13 @@ class _TaskListScreenState extends State<TaskListScreen> {
         title: Text("Aufgabenlisten",
             style: Theme.of(context).primaryTextTheme.titleMedium),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        centerTitle: false,
         actions: [
-          IconButton(
-            color: Theme.of(context).primaryIconTheme.color,
-            icon: const PhosphorIcon(
-              PhosphorIconsRegular.gear,
-              semanticLabel: 'Einstellungen',
-            ),
+          OptionButton(
             onPressed: () {
               _scaffoldKey.currentState?.openEndDrawer();
             },
-          ),
+          )
         ],
       ),
       endDrawer: AppDrawer(),
