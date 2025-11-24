@@ -2,6 +2,7 @@
 
 import 'package:aandm/backend/service/backend_service.dart';
 import 'package:aandm/backend/service/cat_backend_service.dart';
+import 'package:aandm/models/activity/activity_model.dart';
 import 'package:aandm/models/cat/cat_facts_api_model.dart';
 import 'package:aandm/models/cat/cat_picture_api_model.dart';
 import 'package:aandm/models/note/note_api_model.dart';
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CatPictureApiModel> catPictures = [];
   List<TaskList> _taskLists = [];
   List<Note> _notes = [];
+  List<EventlogMessage<dynamic>> _activities = [];
 
   bool isLoading = true;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -95,12 +97,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _getActivities() async {
+    try {
+      final backend = Backend();
+      final res = await backend.getActivity('own');
+      setState(() {
+        _activities = res;
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> _loadData() async {
     try {
       setState(() {
         isLoading = true;
       });
-      await Future.wait([_getTaskLists(), _getNotes(), _getCatData()]);
+      await Future.wait(
+          [_getTaskLists(), _getNotes(), _getCatData(), _getActivities()]);
 
       setState(() {
         isLoading = false;
@@ -184,6 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       navigateToRoute(context, 'activity');
                     },
+                    isLoading: isLoading,
+                    activities: _activities,
                   ),
                   const SizedBox(height: 16),
                   CatPreviewWidget(

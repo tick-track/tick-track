@@ -1,4 +1,3 @@
-import 'package:aandm/backend/service/backend_service.dart';
 import 'package:aandm/models/activity/activity_model.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -9,35 +8,21 @@ class ActivityPreviewWidget extends StatefulWidget {
   const ActivityPreviewWidget({
     super.key,
     required this.onPressed,
+    required this.activities,
+    required this.isLoading,
   });
+
+  final List<EventlogMessage<dynamic>> activities;
+  final bool isLoading;
 
   @override
   State<ActivityPreviewWidget> createState() => _ActivityPreviewWidgetState();
 }
 
 class _ActivityPreviewWidgetState extends State<ActivityPreviewWidget> {
-  List<EventlogMessage<dynamic>> _activities = [];
-  bool _isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _getActivities();
-  }
-
-  Future<void> _getActivities() async {
-    try {
-      final backend = Backend();
-      final res = await backend.getActivity('own');
-      setState(() {
-        _activities = res;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   String _formatTimeAgo(DateTime dateTime) {
@@ -126,9 +111,9 @@ class _ActivityPreviewWidgetState extends State<ActivityPreviewWidget> {
               ],
             ),
             const SizedBox(height: 16),
-            if (_isLoading)
+            if (widget.isLoading)
               const Center(child: CircularProgressIndicator())
-            else if (_activities.isEmpty)
+            else if (widget.activities.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Text(
@@ -139,7 +124,7 @@ class _ActivityPreviewWidgetState extends State<ActivityPreviewWidget> {
                 ),
               )
             else
-              ..._activities.take(5).map((activity) {
+              ...widget.activities.reversed.take(5).map((activity) {
                 final IconData icon;
                 final String entityName;
 
