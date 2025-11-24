@@ -7,13 +7,13 @@ import 'package:aandm/models/task/task_api_model.dart';
 import 'package:aandm/models/tasklist/task_list_api_model.dart';
 import 'package:aandm/util/helpers.dart';
 import 'package:aandm/widgets/app_drawer_widget.dart';
+import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/skeleton/skeleton_card.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
 import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 final class TasksScreen extends StatefulWidget {
@@ -148,7 +148,7 @@ class _TasksScreenState extends State<TasksScreen> {
         itemCount: tasks.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(16.0),
             child: Stack(
               clipBehavior: Clip.antiAlias,
               children: [
@@ -268,6 +268,8 @@ class _TasksScreenState extends State<TasksScreen> {
         appBar: AppBar(
           title: Text(list.name,
               style: Theme.of(context).primaryTextTheme.titleMedium),
+          centerTitle: false,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
@@ -279,17 +281,13 @@ class _TasksScreenState extends State<TasksScreen> {
               tooltip: "I love my gf",
             ),
           ),
+          //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           actions: [
-            IconButton(
-              color: Theme.of(context).primaryIconTheme.color,
-              icon: const PhosphorIcon(
-                PhosphorIconsRegular.gear,
-                semanticLabel: 'Einstellungen',
-              ),
+            OptionButton(
               onPressed: () {
                 _scaffoldKey.currentState?.openEndDrawer();
               },
-            ),
+            )
           ],
         ),
         endDrawer: AppDrawer(),
@@ -407,7 +405,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   "Offene Tasks",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                               ),
                             getAllListItems(incompleteTasks),
@@ -419,7 +417,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   "Abgeschlossene Tasks",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                               ),
                             getAllListItems(completeTasks)

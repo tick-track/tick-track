@@ -80,7 +80,7 @@ ThemeData appThemeLight = ThemeData(
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
       foregroundColor: const WidgetStatePropertyAll(Colors.black),
-      backgroundColor: WidgetStatePropertyAll(Colors.purple[100]),
+      backgroundColor: WidgetStatePropertyAll(Colors.purple[200]),
     ),
   ),
   cardColor: Colors.grey[200],
@@ -151,7 +151,7 @@ ThemeData appThemeDark = ThemeData(
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
         foregroundColor: const WidgetStatePropertyAll(Colors.white),
-        backgroundColor: WidgetStatePropertyAll(Colors.purple[600]),
+        backgroundColor: WidgetStatePropertyAll(Colors.purple[800]),
       ),
     ),
     cardTheme: const CardThemeData(

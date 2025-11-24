@@ -84,9 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Welcome back',
+          'Alina\'s App',
           style: Theme.of(context).primaryTextTheme.titleMedium,
         ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
       ),
       body: SafeArea(
@@ -103,8 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'sign in',
-                        style: theme.primaryTextTheme.titleLarge?.copyWith(
+                        'Welcome back.',
+                        style: theme.primaryTextTheme.displayLarge?.copyWith(
                               fontWeight: FontWeight.w700,
                             ) ??
                             theme.textTheme.headlineSmall?.copyWith(
@@ -218,8 +219,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child:
                                       CircularProgressIndicator(strokeWidth: 2),
                                 )
-                              : const Icon(Icons.login),
-                          label: const Text('Sign in'),
+                              : Icon(
+                                  Icons.login,
+                                  color:
+                                      Theme.of(context).primaryIconTheme.color,
+                                ),
+                          label: Text('Sign in',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .displayLarge),
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(48),
                           ),

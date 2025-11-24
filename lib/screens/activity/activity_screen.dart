@@ -7,10 +7,10 @@ import 'package:aandm/widgets/activity/activity_graph_widget.dart';
 import 'package:aandm/widgets/activity/activity_history_widget.dart';
 import 'package:aandm/widgets/app_drawer_widget.dart';
 import 'package:aandm/widgets/navigation/bottom_menu.dart';
+import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/skeleton/skeleton_card.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ActivityScreen extends StatefulWidget {
@@ -77,17 +77,14 @@ class _ActivityScreenState extends State<ActivityScreen> {
       appBar: AppBar(
         title: Text("Aktivitäten",
             style: Theme.of(context).primaryTextTheme.titleMedium),
+        centerTitle: false,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
-          IconButton(
-            color: Theme.of(context).primaryIconTheme.color,
-            icon: const PhosphorIcon(
-              PhosphorIconsRegular.gear,
-              semanticLabel: 'Einstellungen',
-            ),
+          OptionButton(
             onPressed: () {
               _scaffoldKey.currentState?.openEndDrawer();
             },
-          ),
+          )
         ],
       ),
       endDrawer: AppDrawer(),
@@ -126,11 +123,11 @@ class _ActivityScreenState extends State<ActivityScreen> {
                               "Deine Aktivitäten",
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .titleMedium,
+                                  .displayLarge,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.all(16.0),
                             child:
                                 ActivityGraphWidget(activities: ownActivites),
                           ),
@@ -144,19 +141,29 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                   "Letzte Aktivitäten",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                                 DropdownButton<String>(
                                   value: selectedFilterMode,
                                   underline: Container(),
-                                  items: const [
+                                  items: [
                                     DropdownMenuItem(
                                       value: 'own',
-                                      child: Text('Eigene'),
+                                      child: Text(
+                                        'Eigene',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .displayLarge,
+                                      ),
                                     ),
                                     DropdownMenuItem(
                                       value: 'any',
-                                      child: Text('Alle'),
+                                      child: Text(
+                                        'Alle',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .displayLarge,
+                                      ),
                                     ),
                                   ],
                                   onChanged: (String? newValue) {
