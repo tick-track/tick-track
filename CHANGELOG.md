@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.10.0](https://github.com/sanriodev/aandm/compare/v3.9.1...v3.10.0) (2025-11-24)
+
+
+### Features
+
+* get task lists ([b9084a6](https://github.com/sanriodev/aandm/commit/b9084a6b85b18c3ea82e050ad2101d271bfce4f0))
+* home ([88ca34d](https://github.com/sanriodev/aandm/commit/88ca34db6b6dc256f3f2fb1cbff63e9f5d693d92))
+* more styling ([e821d51](https://github.com/sanriodev/aandm/commit/e821d51d4955b129dde59e5dc6beca36a8673176))
+* styling ([36647fe](https://github.com/sanriodev/aandm/commit/36647fe15afabbfc8787b8e384f91dcff3005b4c))
+* wip app bar changes ([ca573af](https://github.com/sanriodev/aandm/commit/ca573afef8ff1d523a5b78c867a8faa75adc115e))
+
 ## [3.9.1](https://github.com/sanriodev/aandm/compare/v3.9.0...v3.9.1) (2025-11-17)
 
 
