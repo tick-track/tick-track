@@ -127,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("Home",
               style: Theme.of(context).primaryTextTheme.titleMedium),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           actions: [
             IconButton(
               color: Theme.of(context).primaryIconTheme.color,

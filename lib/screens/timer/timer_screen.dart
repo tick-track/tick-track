@@ -50,6 +50,8 @@ class _TimerScreenState extends State<TimerScreen> {
         appBar: AppBar(
           title: Text("Timer",
               style: Theme.of(context).primaryTextTheme.titleMedium),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
           // leading: Padding(
           //   padding: const EdgeInsets.all(8.0),
           //   child: IconButton(

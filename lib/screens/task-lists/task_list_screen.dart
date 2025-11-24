@@ -178,6 +178,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
       appBar: AppBar(
         title: Text("Aufgabenlisten",
             style: Theme.of(context).primaryTextTheme.titleMedium),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
           IconButton(
             color: Theme.of(context).primaryIconTheme.color,

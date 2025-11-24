@@ -279,6 +279,7 @@ class _TasksScreenState extends State<TasksScreen> {
               tooltip: "I love my gf",
             ),
           ),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           actions: [
             IconButton(
               color: Theme.of(context).primaryIconTheme.color,

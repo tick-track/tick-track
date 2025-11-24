@@ -87,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Welcome back',
           style: Theme.of(context).primaryTextTheme.titleMedium,
         ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
       ),
       body: SafeArea(
