@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       AuthBackend().loggedInUser?.user?.username != null
                           ? "Willkommen zurück, ${AuthBackend().loggedInUser?.user?.username}!"
                           : "Willkommen zurück!",
-                      style: Theme.of(context).primaryTextTheme.titleMedium),
+                      style: Theme.of(context).primaryTextTheme.displayLarge),
                   const SizedBox(height: 24),
                   TimerPreviewWidget(
                     themeMode: MainAppScreen.of(context)!.currentTheme!,

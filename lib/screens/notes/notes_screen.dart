@@ -305,7 +305,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                 "Deine Notizen",
                                 style: Theme.of(context)
                                     .primaryTextTheme
-                                    .titleMedium,
+                                    .displayLarge,
                               ),
                             ),
                           getAllListItems(ownNotes),
@@ -317,7 +317,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                 "Geteilte Notizen",
                                 style: Theme.of(context)
                                     .primaryTextTheme
-                                    .titleMedium,
+                                    .displayLarge,
                               ),
                             ),
                           getAllListItems(sharedNotes)

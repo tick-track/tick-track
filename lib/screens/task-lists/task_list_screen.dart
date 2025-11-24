@@ -283,12 +283,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
-                              child: Text(
-                                "Deine Listen",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .titleMedium,
-                              ),
+                              child: Text("Deine Listen",
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .displayLarge),
                             ),
                           getAllListItems(ownTaskLists),
                           if (sharedTaskLists.isNotEmpty)
@@ -299,7 +297,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                                 "Geteilte Listen",
                                 style: Theme.of(context)
                                     .primaryTextTheme
-                                    .titleMedium,
+                                    .displayLarge,
                               ),
                             ),
                           getAllListItems(sharedTaskLists)

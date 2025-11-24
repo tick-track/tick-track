@@ -269,6 +269,7 @@ class _TasksScreenState extends State<TasksScreen> {
           title: Text(list.name,
               style: Theme.of(context).primaryTextTheme.titleMedium),
           centerTitle: false,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
@@ -404,7 +405,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   "Offene Tasks",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                               ),
                             getAllListItems(incompleteTasks),
@@ -416,7 +417,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   "Abgeschlossene Tasks",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                               ),
                             getAllListItems(completeTasks)

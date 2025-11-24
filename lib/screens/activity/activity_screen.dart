@@ -123,7 +123,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                               "Deine Aktivitäten",
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .titleMedium,
+                                  .displayLarge,
                             ),
                           ),
                           Padding(
@@ -141,19 +141,29 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                   "Letzte Aktivitäten",
                                   style: Theme.of(context)
                                       .primaryTextTheme
-                                      .titleMedium,
+                                      .displayLarge,
                                 ),
                                 DropdownButton<String>(
                                   value: selectedFilterMode,
                                   underline: Container(),
-                                  items: const [
+                                  items: [
                                     DropdownMenuItem(
                                       value: 'own',
-                                      child: Text('Eigene'),
+                                      child: Text(
+                                        'Eigene',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .displayLarge,
+                                      ),
                                     ),
                                     DropdownMenuItem(
                                       value: 'any',
-                                      child: Text('Alle'),
+                                      child: Text(
+                                        'Alle',
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .displayLarge,
+                                      ),
                                     ),
                                   ],
                                   onChanged: (String? newValue) {
