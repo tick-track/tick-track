@@ -22,7 +22,7 @@ class Backend extends ABackend {
 
   Future<TaskList> createTaskList(CreateTaskListDto list) async {
     final body = json.encode(list);
-    final res = await post(body, 'task-list/');
+    final res = await post(body, 'v1/task-list/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -37,7 +37,7 @@ class Backend extends ABackend {
   }
 
   Future<List<TaskList>> getAllTaskLists() async {
-    final res = await get('task-list/');
+    final res = await get('v1/task-list/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -55,7 +55,7 @@ class Backend extends ABackend {
 
   Future<TaskList> updateTaskList(UpdateTaskListDto taskList) async {
     final body = json.encode(taskList.toJson());
-    final res = await put(body, 'task-list/');
+    final res = await put(body, 'v1/task-list/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -70,7 +70,7 @@ class Backend extends ABackend {
   }
 
   Future<TaskList> deleteTaskList(int id) async {
-    final res = await delete('task-list/$id');
+    final res = await delete('v1/task-list/$id');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -86,7 +86,7 @@ class Backend extends ABackend {
 
   Future<Note> createNote(CreateNoteDto note) async {
     final body = json.encode(note.toJson());
-    final res = await post(body, 'note/');
+    final res = await post(body, 'v1/note/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -101,7 +101,7 @@ class Backend extends ABackend {
   }
 
   Future<List<Note>> getAllNotes() async {
-    final res = await get('note/');
+    final res = await get('v1/note/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -118,7 +118,7 @@ class Backend extends ABackend {
   }
 
   Future<Note> getNote(int id) async {
-    final res = await get('note/$id');
+    final res = await get('v1/note/$id');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -134,7 +134,7 @@ class Backend extends ABackend {
 
   Future<Note> updateNote(UpdateNoteDto note) async {
     final body = json.encode(note.toJson());
-    final res = await put(body, 'note/');
+    final res = await put(body, 'v1/note/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -149,7 +149,7 @@ class Backend extends ABackend {
   }
 
   Future<Note> deleteNote(int id) async {
-    final res = await delete('note/$id');
+    final res = await delete('v1/note/$id');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -165,7 +165,7 @@ class Backend extends ABackend {
 
   Future<Task> createTask(CreateTaskDto task) async {
     final body = json.encode(task.toJson());
-    final res = await post(body, 'task/');
+    final res = await post(body, 'v1/task/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -180,7 +180,7 @@ class Backend extends ABackend {
   }
 
   Future<List<Task>> getAllTasks() async {
-    final res = await get('task/');
+    final res = await get('v1/task/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -197,7 +197,7 @@ class Backend extends ABackend {
   }
 
   Future<List<Task>> getAllTasksForList(int taskListId) async {
-    final res = await get('task/list/$taskListId');
+    final res = await get('v1/task/list/$taskListId');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -215,7 +215,7 @@ class Backend extends ABackend {
 
   Future<Task> updateTask(Task task) async {
     final body = json.encode(task.toJson());
-    final res = await put(body, 'task/');
+    final res = await put(body, 'v1/task/');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -230,7 +230,7 @@ class Backend extends ABackend {
   }
 
   Future<Task> deleteTask(int id) async {
-    final res = await delete('task/$id');
+    final res = await delete('v1/task/$id');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data']
@@ -248,7 +248,7 @@ class Backend extends ABackend {
     if (filterMode != 'own' && filterMode != 'any') {
       throw 'Invalid filter mode';
     }
-    final res = await get('activity/?filterMode=$filterMode');
+    final res = await get('v1/activity/?filterMode=$filterMode');
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       final jsonData = await json.decode(utf8.decode(res.bodyBytes))['data'];
@@ -266,7 +266,7 @@ class Backend extends ABackend {
     final body = '';
     final res = await patch(
       body,
-      'activity/public-activity?publicActivity=$publicActivity',
+      'v1/activity/public-activity?publicActivity=$publicActivity',
     );
 
     if (res.statusCode == 200 || res.statusCode == 201) {

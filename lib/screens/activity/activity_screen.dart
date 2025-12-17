@@ -10,6 +10,7 @@ import 'package:aandm/widgets/navigation/bottom_menu.dart';
 import 'package:aandm/widgets/option_button.dart';
 import 'package:aandm/widgets/skeleton/skeleton_card.dart';
 import 'package:blvckleg_dart_core/exception/session_expired.dart';
+import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -64,7 +65,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }
