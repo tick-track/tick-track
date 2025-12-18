@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: blvckleg_dart_core
-      sha256: "47d03bdd8079deac72e6cbdc653fbd40850847ce0b09d9c7f1b87ade2b05d5da"
+      sha256: d73a18816e1f40c697302d8a46b2d6c012c63c6b4138212e90040f821e16bb84
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   boolean_selector:
     dependency: transitive
     description:
