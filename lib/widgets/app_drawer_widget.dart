@@ -70,7 +70,7 @@ class _AppDrawerState extends State<AppDrawer> {
     }
   }
 
-  void _showChangePasswordDialogue() async {
+  Future<void> _showChangePasswordDialogue() async {
     String newPassword = '';
     String newPasswordConfirm = '';
     User? user;
