@@ -53,6 +53,9 @@ class _AppDrawerState extends State<AppDrawer> {
       final backend = AuthBackend();
       if (_ownUser != null && _ownUser!.publicActivity != null) {
         await backend.patchChangePassword(userId, newPassword);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Passwort erfolgreich geändert.')),
+        );
       }
     } catch (e) {
       if (e is SessionExpiredException) {
@@ -73,24 +76,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Future<void> _showChangePasswordDialogue() async {
     String newPassword = '';
     String newPasswordConfirm = '';
-    User? user;
-    try {
-      final backend = AuthBackend();
-      user = await backend.getOwnUser();
-    } catch (e) {
-      if (e is SessionExpiredException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Bitte melde dich erneut an.')),
-        );
-
-        try {
-          await AuthBackend().postLogout();
-          await deleteBoxAndNavigateToLogin(context);
-        } catch (e) {
-          await deleteBoxAndNavigateToLogin(context);
-        }
-      }
-    }
+    final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -110,10 +96,13 @@ class _AppDrawerState extends State<AppDrawer> {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextField(
+                  TextFormField(
                     obscureText: true,
+                    style: theme.primaryTextTheme.bodySmall,
                     decoration: InputDecoration(
                       labelText: 'Neues Passwort',
+                      labelStyle: theme.primaryTextTheme.bodySmall,
+                      hintStyle: theme.primaryTextTheme.bodySmall,
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (value) {
@@ -123,13 +112,19 @@ class _AppDrawerState extends State<AppDrawer> {
                     },
                   ),
                   SizedBox(height: 16),
-                  TextField(
+                  TextFormField(
                     obscureText: true,
+                    style: theme.primaryTextTheme.bodySmall,
                     decoration: InputDecoration(
                       labelText: 'Passwort bestätigen',
+                      labelStyle: theme.primaryTextTheme.bodySmall,
+                      hintStyle: theme.primaryTextTheme.bodySmall,
                       border: OutlineInputBorder(),
                       errorText:
                           showError ? 'Passwörter stimmen nicht überein' : null,
+                      errorStyle: theme.primaryTextTheme.bodySmall?.copyWith(
+                        color: Colors.red,
+                      ),
                       errorBorder: showError
                           ? OutlineInputBorder(
                               borderSide:
@@ -164,10 +159,10 @@ class _AppDrawerState extends State<AppDrawer> {
               onPressed: () async {
                 if (newPasswordConfirm != newPassword ||
                     newPassword.isEmpty ||
-                    user == null) {
+                    _ownUser == null) {
                   return;
                 }
-                await _changePassword(user.id.toString(), newPassword);
+                await _changePassword(_ownUser!.id.toString(), newPassword);
                 if (context.mounted) {
                   Navigator.of(context).pop();
                 }
@@ -320,7 +315,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 _showChangePasswordDialogue();
               },
               leading: PhosphorIcon(
-                PhosphorIconsRegular.signOut,
+                PhosphorIconsRegular.password,
                 color: Theme.of(context).primaryIconTheme.color,
               ),
               title: Text(
