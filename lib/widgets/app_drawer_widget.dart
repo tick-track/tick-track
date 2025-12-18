@@ -64,7 +64,12 @@ class _AppDrawerState extends State<AppDrawer> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }

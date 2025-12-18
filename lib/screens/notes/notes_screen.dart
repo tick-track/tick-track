@@ -66,7 +66,12 @@ class _NotesScreenState extends State<NotesScreen> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }
@@ -88,7 +93,12 @@ class _NotesScreenState extends State<NotesScreen> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }
@@ -110,7 +120,12 @@ class _NotesScreenState extends State<NotesScreen> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }
@@ -144,7 +159,12 @@ class _NotesScreenState extends State<NotesScreen> {
           SnackBar(content: Text('Bitte melde dich erneut an.')),
         );
 
-        await deleteBoxAndNavigateToLogin(context);
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
       }
     }
   }
