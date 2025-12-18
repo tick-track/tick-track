@@ -48,11 +48,139 @@ class _AppDrawerState extends State<AppDrawer> {
     });
   }
 
-  Future<void> _changeActivityPrivacy() async {
-    final backend = Backend();
-    if (_ownUser != null && _ownUser!.publicActivity != null) {
-      await backend.setActivityPrivacy(!_ownUser!.publicActivity!);
+  Future<void> _changePassword(String userId, String newPassword) async {
+    try {
+      final backend = AuthBackend();
+      if (_ownUser != null && _ownUser!.publicActivity != null) {
+        await backend.patchChangePassword(userId, newPassword);
+      }
+    } catch (e) {
+      if (e is SessionExpiredException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Bitte melde dich erneut an.')),
+        );
+
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
+      }
     }
+  }
+
+  void _showChangePasswordDialogue() async {
+    String newPassword = '';
+    String newPasswordConfirm = '';
+    User? user;
+    try {
+      final backend = AuthBackend();
+      user = await backend.getOwnUser();
+    } catch (e) {
+      if (e is SessionExpiredException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Bitte melde dich erneut an.')),
+        );
+
+        try {
+          await AuthBackend().postLogout();
+          await deleteBoxAndNavigateToLogin(context);
+        } catch (e) {
+          await deleteBoxAndNavigateToLogin(context);
+        }
+      }
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Passwort ändern.',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          content: StatefulBuilder(
+            builder: (context, setDialogState) {
+              final passwordsMatch = newPassword.isNotEmpty &&
+                  newPasswordConfirm.isNotEmpty &&
+                  newPassword == newPasswordConfirm;
+              final showError =
+                  newPasswordConfirm.isNotEmpty && !passwordsMatch;
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Neues Passwort',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      setDialogState(() {
+                        newPassword = value;
+                      });
+                    },
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Passwort bestätigen',
+                      border: OutlineInputBorder(),
+                      errorText:
+                          showError ? 'Passwörter stimmen nicht überein' : null,
+                      errorBorder: showError
+                          ? OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2),
+                            )
+                          : null,
+                      focusedErrorBorder: showError
+                          ? OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2),
+                            )
+                          : null,
+                    ),
+                    onChanged: (value) {
+                      setDialogState(() {
+                        newPasswordConfirm = value;
+                      });
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Abbrechen'),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (newPasswordConfirm != newPassword ||
+                    newPassword.isEmpty ||
+                    user == null) {
+                  return;
+                }
+                await _changePassword(user.id.toString(), newPassword);
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Bestätigen'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _changeActivityPrivacy() async {
     try {
       final backend = Backend();
       if (_ownUser != null && _ownUser!.publicActivity != null) {
@@ -72,6 +200,50 @@ class _AppDrawerState extends State<AppDrawer> {
         }
       }
     }
+  }
+
+  void _showActivityDialogue() {
+    final isCurrentlyPublic = _ownUser != null &&
+        _ownUser!.publicActivity != null &&
+        _ownUser!.publicActivity!;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            isCurrentlyPublic
+                ? 'Aktivitäten nicht teilen?'
+                : 'Aktivitäten teilen?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          content: Text(
+            isCurrentlyPublic
+                ? 'Aktivitäten werden nicht länger geteilt.'
+                : 'Andere Benutzer können sehen wenn Sie Einträge erstellen, aktualisieren oder löschen',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Abbrechen'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _changeActivityPrivacy();
+                await _getOwnUser();
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Bestätigen'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -131,47 +303,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             ListTile(
               onTap: () {
-                final isCurrentlyPublic = _ownUser != null &&
-                    _ownUser!.publicActivity != null &&
-                    _ownUser!.publicActivity!;
-
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(
-                        isCurrentlyPublic
-                            ? 'Aktivitäten nicht teilen?'
-                            : 'Aktivitäten teilen?',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      content: Text(
-                        isCurrentlyPublic
-                            ? 'Aktivitäten werden nicht länger geteilt.'
-                            : 'Andere Benutzer können sehen wenn Sie Einträge erstellen, aktualisieren oder löschen',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Abbrechen'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await _changeActivityPrivacy();
-                            await _getOwnUser();
-                            if (context.mounted) {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          child: Text('Bestätigen'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                _showActivityDialogue();
               },
               leading: PhosphorIcon(
                 PhosphorIcons.pulse(),
@@ -185,7 +317,25 @@ class _AppDrawerState extends State<AppDrawer> {
             const Spacer(),
             ListTile(
               onTap: () {
-                deleteBoxAndNavigateToLogin(context);
+                _showChangePasswordDialogue();
+              },
+              leading: PhosphorIcon(
+                PhosphorIconsRegular.signOut,
+                color: Theme.of(context).primaryIconTheme.color,
+              ),
+              title: Text(
+                'Passwort ändern',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+            ListTile(
+              onTap: () async {
+                try {
+                  await AuthBackend().postLogout();
+                  await deleteBoxAndNavigateToLogin(context);
+                } catch (e) {
+                  await deleteBoxAndNavigateToLogin(context);
+                }
               },
               leading: PhosphorIcon(
                 PhosphorIconsRegular.signOut,
