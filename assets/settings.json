@@ -1,3 +1,5 @@
 {
-  "url": "https://mc-server.blvckleg.dev/api/"
+  "url": "https://mc-server.blvckleg.dev/api/",
+  "registrationEnabled": true,
+  "supportEmail": "services@blvckleg.dev"
 }
