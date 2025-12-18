@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.11.0](https://github.com/sanriodev/aandm/compare/v3.10.0...v3.11.0) (2025-12-18)
+
+
+### Features
+
+* change password ([06d8bf5](https://github.com/sanriodev/aandm/commit/06d8bf5b92ee493395a9476e202ceb21b6aaf77e))
+* correct error message when possible on login ([6980bc8](https://github.com/sanriodev/aandm/commit/6980bc8082c97a1d323e62e770e7987a014d9df0))
+* passwort ändern ([25972e9](https://github.com/sanriodev/aandm/commit/25972e994034f29cecbde94119bb4ec18d133c94))
+* settings ([65cc15c](https://github.com/sanriodev/aandm/commit/65cc15c3407db8c8e5adfaada688005e0c5e99bc))
+* use logout ([6bd51fc](https://github.com/sanriodev/aandm/commit/6bd51fcc771f067aa5b4e77c0eff92160f5793cd))
+
 ## [3.10.0](https://github.com/sanriodev/aandm/compare/v3.9.1...v3.10.0) (2025-11-24)
 
 
