@@ -28,6 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   bool _acceptedPrivacy = false;
   bool _submitting = false;
+  bool _requestSuccess = false;
 
   @override
   void dispose() {
@@ -58,15 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     try {
       await Backend()
           .requestAccess(_usernameCtrl.text.trim(), _emailCtrl.text.trim());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Behalte dein Email-Postfach im Auge.'),
-        ),
-      );
-      navigateToRoute(
-        context,
-        'login',
-      );
+      setState(() => _requestSuccess = true);
     } catch (e) {
       if (e is Response) {
         final jsonData = await json.decode(utf8.decode(e.bodyBytes));
@@ -111,156 +104,212 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 480),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+        child: _requestSuccess
+            ? _buildSuccessView(theme)
+            : _buildRequestForm(theme),
+      ),
+    );
+  }
+
+  Widget _buildSuccessView(ThemeData theme) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.check_circle_rounded,
+                size: 120,
+                color: theme.colorScheme.primary,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Anfrage für einen Account geschickt, behalte dein Email-Postfach im Auge',
+                style: theme.primaryTextTheme.displayLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ) ??
+                    theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 48),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    navigateToRoute(context, 'login');
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryIconTheme.color,
+                  ),
+                  label: Text(
+                    'Zurück zum Login',
+                    style: Theme.of(context).primaryTextTheme.displayLarge,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(48),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRequestForm(ThemeData theme) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Zugang anfordern',
+                  style: theme.primaryTextTheme.displayLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ) ??
+                      theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _usernameCtrl,
+                  focusNode: _usernameFocus,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  style: theme.primaryTextTheme.bodySmall,
+                  decoration: InputDecoration(
+                    labelText: 'Benutzername',
+                    hintText: 'Gewünschter Benutzername',
+                    labelStyle: theme.primaryTextTheme.bodySmall,
+                    hintStyle: theme.primaryTextTheme.bodySmall,
+                    prefixIcon: const Icon(Icons.person_outline, size: 20),
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                  ),
+                  validator: (v) => (v == null || v.trim().isEmpty)
+                      ? 'Bitte geben Sie einen Benutzernamen ein'
+                      : null,
+                  onFieldSubmitted: (_) => _emailFocus.requestFocus(),
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  controller: _emailCtrl,
+                  focusNode: _emailFocus,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.emailAddress,
+                  style: theme.primaryTextTheme.bodySmall,
+                  decoration: InputDecoration(
+                    labelText: 'E-Mail-Adresse',
+                    hintText: 'ihre.email@beispiel.de',
+                    labelStyle: theme.primaryTextTheme.bodySmall,
+                    hintStyle: theme.primaryTextTheme.bodySmall,
+                    prefixIcon: const Icon(Icons.email_outlined, size: 20),
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                  ),
+                  validator: (v) {
+                    if (v == null || v.trim().isEmpty) {
+                      return 'Bitte geben Sie eine E-Mail-Adresse ein';
+                    }
+                    if (!v.contains('@')) {
+                      return 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+                    }
+                    return null;
+                  },
+                  onFieldSubmitted: (_) => _submit(),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Zugang anfordern',
-                      style: theme.primaryTextTheme.displayLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ) ??
-                          theme.textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _usernameCtrl,
-                      focusNode: _usernameFocus,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      style: theme.primaryTextTheme.bodySmall,
-                      decoration: InputDecoration(
-                        labelText: 'Benutzername',
-                        hintText: 'Gewünschter Benutzername',
-                        labelStyle: theme.primaryTextTheme.bodySmall,
-                        hintStyle: theme.primaryTextTheme.bodySmall,
-                        prefixIcon: const Icon(Icons.person_outline, size: 20),
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                      ),
-                      validator: (v) => (v == null || v.trim().isEmpty)
-                          ? 'Bitte geben Sie einen Benutzernamen ein'
-                          : null,
-                      onFieldSubmitted: (_) => _emailFocus.requestFocus(),
-                    ),
-                    const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _emailCtrl,
-                      focusNode: _emailFocus,
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.emailAddress,
-                      style: theme.primaryTextTheme.bodySmall,
-                      decoration: InputDecoration(
-                        labelText: 'E-Mail-Adresse',
-                        hintText: 'ihre.email@beispiel.de',
-                        labelStyle: theme.primaryTextTheme.bodySmall,
-                        hintStyle: theme.primaryTextTheme.bodySmall,
-                        prefixIcon: const Icon(Icons.email_outlined, size: 20),
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                      ),
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty) {
-                          return 'Bitte geben Sie eine E-Mail-Adresse ein';
-                        }
-                        if (!v.contains('@')) {
-                          return 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
-                        }
-                        return null;
+                    Checkbox(
+                      value: _acceptedPrivacy,
+                      onChanged: (value) {
+                        setState(() => _acceptedPrivacy = value ?? false);
                       },
-                      onFieldSubmitted: (_) => _submit(),
+                      visualDensity: VisualDensity.compact,
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: _acceptedPrivacy,
-                          onChanged: (value) {
-                            setState(() => _acceptedPrivacy = value ?? false);
-                          },
-                          visualDensity: VisualDensity.compact,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: RichText(
-                              text: TextSpan(
-                                style: theme.primaryTextTheme.bodySmall,
-                                children: [
-                                  TextSpan(
-                                    text: 'Ich bin mit der ',
-                                  ),
-                                  TextSpan(
-                                    text: 'Datenschutzerklärung',
-                                    style: theme.primaryTextTheme.bodySmall
-                                        ?.copyWith(
-                                      color: theme.colorScheme.primary,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        launchUrlInBrowser(
-                                          Uri.parse(
-                                              'https://blvckleg.dev/app-legal'),
-                                        );
-                                      },
-                                  ),
-                                  TextSpan(
-                                    text: ' einverstanden',
-                                  ),
-                                ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: RichText(
+                          text: TextSpan(
+                            style: theme.primaryTextTheme.bodySmall,
+                            children: [
+                              TextSpan(
+                                text: 'Ich bin mit der ',
                               ),
-                            ),
+                              TextSpan(
+                                text: 'Datenschutzerklärung',
+                                style:
+                                    theme.primaryTextTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launchUrlInBrowser(
+                                      Uri.parse(
+                                          'https://blvckleg.dev/app-legal'),
+                                    );
+                                  },
+                              ),
+                              TextSpan(
+                                text: ' einverstanden',
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: _submitting ? null : _submit,
-                        icon: _submitting
-                            ? const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2),
-                              )
-                            : Icon(
-                                Icons.send,
-                                color: Theme.of(context).primaryIconTheme.color,
-                              ),
-                        label: Text(
-                          'Account anfordern',
-                          style:
-                              Theme.of(context).primaryTextTheme.displayLarge,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(48),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: _submitting ? null : _submit,
+                    icon: _submitting
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Icon(
+                            Icons.send,
+                            color: Theme.of(context).primaryIconTheme.color,
+                          ),
+                    label: Text(
+                      'Account anfordern',
+                      style: Theme.of(context).primaryTextTheme.displayLarge,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(48),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
