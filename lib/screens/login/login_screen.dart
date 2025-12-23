@@ -3,7 +3,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:aandm/util/helpers.dart';
+import 'package:blvckleg_dart_core/models/settings/settings_model.dart';
 import 'package:blvckleg_dart_core/service/auth_backend_service.dart';
+import 'package:blvckleg_dart_core/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -29,6 +31,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _obscure = true;
   bool _submitting = false;
+
+  SettingsModel? appSettings;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  Future<void> init() async {
+    final settings = await Settings().loadSettings();
+    if (mounted) {
+      setState(() {
+        appSettings = settings;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -218,6 +237,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             : null,
                         onFieldSubmitted: (_) => _submit(),
                       ),
+                      if (appSettings?.registrationEnabled ?? false)
+                        const SizedBox(height: 24),
+                      if (appSettings?.registrationEnabled ?? false)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: GestureDetector(
+                            onTap: () {
+                              navigateToRoute(context, 'onboarding',
+                                  backEnabled: true);
+                            },
+                            child: Text(
+                              'Noch keinen Account?',
+                              style: theme.primaryTextTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.primary,
+                                decoration: TextDecoration.underline,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
                       const SizedBox(height: 24),
                       SizedBox(
                         width: double.infinity,

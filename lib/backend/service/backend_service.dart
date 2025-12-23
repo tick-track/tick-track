@@ -275,4 +275,18 @@ class Backend extends ABackend {
       throw res;
     }
   }
+
+  Future<void> requestAccess(String username, String email) async {
+    final body = json.encode({
+      'username': username,
+      'email': email,
+    });
+    final res = await post(body, 'v1/application/request-access');
+
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      return;
+    } else {
+      throw res;
+    }
+  }
 }
