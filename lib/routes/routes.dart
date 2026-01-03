@@ -1,6 +1,7 @@
 import 'package:aandm/screens/activity/activity_screen.dart';
 import 'package:aandm/screens/home/home_screen.dart';
 import 'package:aandm/screens/login/login_screen.dart';
+import 'package:aandm/screens/login/onboarding/onboarding_screen.dart';
 import 'package:aandm/screens/notes/notes_edit_screen.dart';
 import 'package:aandm/screens/notes/notes_screen.dart';
 import 'package:aandm/screens/splash/splash_screen.dart';
@@ -80,6 +81,22 @@ GoRouter createRouter() {
           key: state.pageKey,
           name: 'login',
           child: const LoginScreen(),
+          transitionDuration: const Duration(milliseconds: transitionDuration),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+              child: child,
+            );
+          },
+        ),
+      ),
+      GoRoute(
+        name: 'onboarding',
+        path: '/onboarding',
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          name: 'onboarding',
+          child: const OnboardingScreen(),
           transitionDuration: const Duration(milliseconds: transitionDuration),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
