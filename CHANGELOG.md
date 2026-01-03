@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.12.0](https://github.com/sanriodev/aandm/compare/v3.11.0...v3.12.0) (2026-01-03)
+
+
+### Features
+
+* onboarding ([ebdb25c](https://github.com/sanriodev/aandm/commit/ebdb25cd8b7f1888ce2fb135edb79a3d6fdf94a8))
+* success thingy ([93a21ae](https://github.com/sanriodev/aandm/commit/93a21aeab008371a37dd2a8a827bef8a84beacf5))
+
 ## [3.11.0](https://github.com/sanriodev/aandm/compare/v3.10.0...v3.11.0) (2025-12-18)
 
 
