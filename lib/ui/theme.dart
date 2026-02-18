@@ -15,16 +15,16 @@ class ActivityHeatmapColors extends ThemeExtension<ActivityHeatmapColors> {
   factory ActivityHeatmapColors.light() => ActivityHeatmapColors(levels: [
         Color(0xFFE0E0E0), // empty - light grey
         Colors.purple[100]!, // low
-        Colors.purple[200]!, // medium
+        Colors.grey[200]!, // medium
         Colors.purple[300]!, // high
-        Colors.purple[400]!, // very high
+        Colors.grey[400]!, // very high
       ]);
 
   // Dark mode scale – darker bases with higher contrast.
   factory ActivityHeatmapColors.dark() => ActivityHeatmapColors(levels: [
         Color(0xFF424242), // empty - dark grey
-        Colors.purple[800]!, // low
-        Colors.purple[700]!, // medium
+        Colors.grey[800]!, // low
+        Colors.grey[700]!, // medium
         Colors.purple[600]!, // high
         Colors.purple[500]!, // very high
       ]);
@@ -46,32 +46,31 @@ class ActivityHeatmapColors extends ThemeExtension<ActivityHeatmapColors> {
 }
 
 ThemeData appThemeLight = ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue[200]!),
-  primaryColor: Colors.blue[200],
+  colorScheme: ColorScheme.fromSeed(seedColor: Colors.white24),
+  primaryColor: Colors.white24,
   canvasColor: Colors.grey[400],
-  secondaryHeaderColor: Colors.purple[200],
-  scaffoldBackgroundColor: Colors.blue[100],
+  secondaryHeaderColor: Colors.grey[200],
+  scaffoldBackgroundColor: Colors.white12,
   extensions: <ThemeExtension<dynamic>>[
     ActivityHeatmapColors.light(),
   ],
   appBarTheme: AppBarThemeData(
-    foregroundColor: Colors.purple[200],
-    backgroundColor: Colors.purple[200],
+    foregroundColor: Colors.grey[200],
+    backgroundColor: Colors.grey[200],
     titleTextStyle: const TextStyle(color: Colors.black),
   ),
   primaryTextTheme: textThemeLight(),
   textTheme: textThemeLight(),
   buttonTheme: ButtonThemeData(
-    buttonColor: Colors.blue[200],
+    buttonColor: Colors.white24,
     textTheme: ButtonTextTheme.primary,
   ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.purple[200],
-  ),
+  floatingActionButtonTheme:
+      FloatingActionButtonThemeData(backgroundColor: Colors.grey[200]),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
     // minimumSize: const WidgetStatePropertyAll(Size(200, 40)),
-    backgroundColor: WidgetStatePropertyAll(Colors.purple[200]),
+    backgroundColor: WidgetStatePropertyAll(Colors.grey[200]),
     foregroundColor: const WidgetStatePropertyAll(Colors.black),
     textStyle: const WidgetStatePropertyAll(
       TextStyle(fontSize: 16, color: Colors.black),
@@ -80,7 +79,7 @@ ThemeData appThemeLight = ThemeData(
   iconButtonTheme: IconButtonThemeData(
     style: ButtonStyle(
       foregroundColor: const WidgetStatePropertyAll(Colors.black),
-      backgroundColor: WidgetStatePropertyAll(Colors.purple[200]),
+      backgroundColor: WidgetStatePropertyAll(Colors.grey[200]),
     ),
   ),
   cardColor: Colors.grey[200],
@@ -88,9 +87,9 @@ ThemeData appThemeLight = ThemeData(
     color: Colors.white,
   ),
   progressIndicatorTheme: ProgressIndicatorThemeData(
-    color: Colors.purple[400],
+    color: Colors.grey[400],
   ),
-  iconTheme: IconThemeData(color: Colors.purple[400]),
+  iconTheme: IconThemeData(color: Colors.grey[400]),
   primaryIconTheme: IconThemeData(color: Colors.black),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
@@ -111,39 +110,39 @@ ThemeData appThemeLight = ThemeData(
 
 ThemeData appThemeDark = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue[900]!,
+      seedColor: Colors.white70,
       brightness: Brightness.dark,
     ),
-    primaryColor: Colors.blue[900],
+    primaryColor: Colors.white70,
     canvasColor: Colors.grey[800],
-    secondaryHeaderColor: Colors.purple[800],
-    scaffoldBackgroundColor: Colors.blue[800],
+    secondaryHeaderColor: Colors.grey[800],
+    scaffoldBackgroundColor: Colors.white60,
     extensions: <ThemeExtension<dynamic>>[
       ActivityHeatmapColors.dark(),
     ],
     appBarTheme: AppBarTheme(
-      foregroundColor: Colors.purple[800],
-      backgroundColor: Colors.purple[800],
+      foregroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[800],
       titleTextStyle: const TextStyle(color: Colors.white),
     ),
     buttonTheme: ButtonThemeData(
-      buttonColor: Colors.blue[800],
+      buttonColor: Colors.white60,
       textTheme: ButtonTextTheme.primary,
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.purple[800],
+      backgroundColor: Colors.grey[800],
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: Colors.purple[700],
+      color: Colors.grey[700],
     ),
     iconTheme: IconThemeData(
-      color: Colors.purple[800],
+      color: Colors.grey[800],
     ),
     primaryIconTheme: IconThemeData(color: Colors.white),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
       // minimumSize: const WidgetStatePropertyAll(Size(200, 40)),
-      backgroundColor: WidgetStatePropertyAll(Colors.purple[800]),
+      backgroundColor: WidgetStatePropertyAll(Colors.grey[800]),
       foregroundColor: const WidgetStatePropertyAll(Colors.black),
       textStyle: const WidgetStatePropertyAll(
           TextStyle(fontSize: 16, color: Colors.black)),
@@ -151,7 +150,7 @@ ThemeData appThemeDark = ThemeData(
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
         foregroundColor: const WidgetStatePropertyAll(Colors.white),
-        backgroundColor: WidgetStatePropertyAll(Colors.purple[800]),
+        backgroundColor: WidgetStatePropertyAll(Colors.grey[800]),
       ),
     ),
     cardTheme: const CardThemeData(
