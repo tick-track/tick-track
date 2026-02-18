@@ -262,7 +262,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       bottom: 20,
                       left: 15,
                       child: Text(
-                        'Alina\'s App\nI love Alina',
+                        'Options',
                         style: Theme.of(context).primaryTextTheme.displayLarge,
                       ),
                     ),
@@ -384,7 +384,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     onPressed: () => showAboutDialog(
                       context: context,
                       applicationVersion: 'Version: ${_packageInfo.version}',
-                      applicationName: 'Alina\'s App',
+                      applicationName: 'TickTrack',
                       children: [
                         Text(
                           'Copyright: MATTEO JUEN',

@@ -59,7 +59,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
     return MultiProvider(
       providers: [Provider(create: (context) => CatBackend())],
       child: MaterialApp.router(
-        title: 'Alina\'s App',
+        title: 'TickTrack',
         themeMode: currentTheme,
         theme: appThemeLight,
         darkTheme: appThemeDark,
