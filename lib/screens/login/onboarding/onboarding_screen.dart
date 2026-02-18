@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-import 'package:aandm/backend/service/backend_service.dart';
-import 'package:aandm/util/helpers.dart';
+import 'package:ticktrack/backend/service/backend_service.dart';
+import 'package:ticktrack/util/helpers.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -99,7 +99,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Navigator.of(context).pop();
             },
             color: Theme.of(context).primaryIconTheme.color,
-            tooltip: "I love my gf",
           ),
         ),
       ),
